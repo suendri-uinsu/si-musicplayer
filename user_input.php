@@ -4,19 +4,19 @@
 	<table>
 		<tr>
 			<td>USERNAME</td>
-			<td><input type="text" name="user_name" required=""></td>
+			<td><input type="text" name="user_name" required></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
-			<td><input type="password" name="user_password" required=""></td>
+			<td><input type="password" name="user_password" required></td>
 		</tr>
 		<tr>
 			<td>EMAIL</td>
-			<td><input type="text" name="user_email" required=""></td>
+			<td><input type="text" name="user_email" required></td>
 		</tr>
 		<tr>
 			<td>NAMA LENGKAP</td>
-			<td><input type="text" name="user_nama_lengkap" required=""></td>
+			<td><input type="text" name="user_nama_lengkap" required></td>
 		</tr>
 		<tr>
 			<td>ROLE</td>

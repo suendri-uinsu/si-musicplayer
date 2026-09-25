@@ -2,7 +2,7 @@
 	<a href="dashboard.php?page=user_input" class="btn">Tambah</a>
 </h2>
 
-<?php 
+<?php
 
 $usr = new App\User();
 $rows = $usr->tampil();
@@ -20,12 +20,12 @@ $rows = $usr->tampil();
 	</tr>
 	<?php foreach ($rows as $row) { ?>
 		<tr>
-			<td><?php echo $row['user_id']; ?></td>
-			<td><?php echo $row['user_name']; ?></td>
-			<td><?php echo $row['user_email']; ?></td>
-			<td><?php echo $row['user_nama_lengkap']; ?></td>
+			<td><?= $row['user_id'] ?></td>
+			<td><?= $row['user_name'] ?></td>
+			<td><?= $row['user_email'] ?></td>
+			<td><?= $row['user_nama_lengkap'] ?></td>
 			<td>
-				<?php 
+				<?php
 				if($row['user_role'] == 1) {
 					echo "Administrator";
 				} else {
@@ -33,7 +33,7 @@ $rows = $usr->tampil();
 				}
 				?>				
 			</td>
-			<td><a href="dashboard.php?page=user_edit&id=<?php echo $row['user_id']; ?>" class="btn">Edit</a></td>
+			<td><a href="dashboard.php?page=user_edit&id=<?= $row['user_id'] ?>" class="btn">Edit</a></td>
 		</tr>
 	<?php } ?>
 </table>

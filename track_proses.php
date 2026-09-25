@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 // Config
 require_once "inc/config.php";
 
+wajibLogin();
+
 $trc = new App\Track();
 
-if ($_POST['btn-simpan']) {
-	$trc->input();
-	header("location:dashboard.php?page=track_tampil");
+if (isset($_POST['btn-simpan'])) {
+	$trc->input($_POST, $_FILES);
+} elseif (isset($_POST['btn-update'])) {
+	$trc->update($_POST, $_FILES);
 }
 
-if ($_POST['btn-update']) {
-	$trc->update();
-	header("location:dashboard.php?page=track_tampil");
-}
+redirect("dashboard.php?page=track_tampil");

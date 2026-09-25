@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 // Config
 require_once "inc/config.php";
 
+wajibLogin();
+
 $art = new App\Artist();
 
-if ($_POST['btn-simpan']) {
-	$art->input();
-	header("location:dashboard.php?page=artist_tampil");
+if (isset($_POST['btn-simpan'])) {
+	$art->input($_POST);
+} elseif (isset($_POST['btn-update'])) {
+	$art->update($_POST);
 }
 
-if ($_POST['btn-update']) {
-	$art->update();
-	header("location:dashboard.php?page=artist_tampil");
-}
+redirect("dashboard.php?page=artist_tampil");

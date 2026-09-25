@@ -3,14 +3,14 @@
 // Config
 require_once "inc/config.php";
 
+wajibLogin();
+
 $user = new App\User();
 
-if ($_POST['btn-simpan']) {
-	$user->input();
-	header("location:dashboard.php?page=user_tampil");
+if (isset($_POST['btn-simpan'])) {
+	$user->input($_POST);
+} elseif (isset($_POST['btn-update'])) {
+	$user->update($_POST);
 }
 
-if ($_POST['btn-update']) {
-	$user->update();
-	header("location:dashboard.php?page=user_tampil");
-}
+redirect("dashboard.php?page=user_tampil");

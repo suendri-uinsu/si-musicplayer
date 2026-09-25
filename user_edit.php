@@ -1,19 +1,26 @@
-<?php 
+<?php
 
-$id = $_GET['id'];
+$id = ambilId();
 
 $user = new App\User();
 $row = $user->edit($id);
+
+// Kalau data tidak ditemukan, hentikan halaman ini
+if ($row === false) {
+	echo '<p>Data tidak ditemukan.</p>';
+	return;
+}
+
 ?>
 
 <h2>EDIT USER</h2>
 
 <form method="POST" action="user_proses.php">
-	<input type="hidden" name="user_id" value="<?php echo $id; ?>">
+	<input type="hidden" name="user_id" value="<?= $id ?>">
 	<table>
 		<tr>
 			<td>USERNAME</td>
-			<td><input type="text" name="user_name" value="<?php echo $row['user_name']; ?>" required=""></td>
+			<td><input type="text" name="user_name" value="<?= $row['user_name'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
@@ -24,18 +31,18 @@ $row = $user->edit($id);
 		</tr>
 		<tr>
 			<td>EMAIL</td>
-			<td><input type="text" name="user_email" value="<?php echo $row['user_email']; ?>" required=""></td>
+			<td><input type="text" name="user_email" value="<?= $row['user_email'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>NAMA LENGKAP</td>
-			<td><input type="text" name="user_nama_lengkap" value="<?php echo $row['user_nama_lengkap']; ?>" required=""></td>
+			<td><input type="text" name="user_nama_lengkap" value="<?= $row['user_nama_lengkap'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>ROLE</td>
 			<td>
 				<select name="user_role">
-					<option value="1"<?php echo $row['user_role']==1 ? " selected" : ""; ?>>Administrator</option>
-					<option value="2"<?php echo $row['user_role']==2 ? " selected" : ""; ?>>Operator</option>
+					<option value="1"<?= $row['user_role'] === '1' ? " selected" : "" ?>>Administrator</option>
+					<option value="2"<?= $row['user_role'] === '2' ? " selected" : "" ?>>Operator</option>
 				</select>
 			</td>
 		</tr>

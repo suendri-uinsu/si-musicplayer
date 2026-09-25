@@ -4,7 +4,7 @@
 	<table>
 		<tr>
 			<td>NAMA</td>
-			<td><input type="text" name="artist_name" required=""></td>
+			<td><input type="text" name="artist_name" required></td>
 		</tr>
 		<tr>
 			<td></td>

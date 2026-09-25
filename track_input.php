@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $alb = new App\Track();
 $lst = $alb->listAlbum();
@@ -10,21 +10,21 @@ $lst = $alb->listAlbum();
 	<table>
 		<tr>
 			<td>JUDUL</td>
-			<td><input type="text" name="track_name" required=""></td>
+			<td><input type="text" name="track_name" required></td>
 		</tr>
 		<tr>
 			<td>ALBUM</td>
 			<td>
 				<select name="track_id_album">
 					<?php foreach ($lst as $ls) { ?>
-					<option value="<?php echo $ls['album_id']; ?>"><?php echo $ls['album_name']; ?></option>
+					<option value="<?= $ls['album_id'] ?>"><?= $ls['album_name'] ?></option>
 					<?php } ?>
 				</select>
 			</td>
 		</tr>
 		<tr>
 			<td>DURASI</td>
-			<td><input type="text" name="track_time" required=""></td>
+			<td><input type="text" name="track_time" required></td>
 		</tr>
 		<tr>
 			<td>FILE (MP3)</td>

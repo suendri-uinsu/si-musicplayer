@@ -1,87 +1,57 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace App;
 
-class Album extends Controller {
-
-	public function __construct() {
-		parent::__construct();
-	}
-
-	public function tampil()
+class Album extends Controller
+{
+	public function tampil(): array
 	{
-		$sql = "SELECT tb_album.*, tb_artist.artist_name as ART 
-		FROM tb_album, tb_artist
-		WHERE tb_album.album_id_artist=tb_artist.artist_id ORDER BY tb_album.album_name";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute();
+		$sql = "SELECT al.*, ar.artist_name AS ART
+		FROM tb_album al
+		INNER JOIN tb_artist ar ON al.album_id_artist=ar.artist_id
+		ORDER BY al.album_name";
 
-		$data = [];
-		while ($row = $stmt->fetch()) {
-			$data[] = $row;
-		}
-
-		return $data;
+		return $this->db->query($sql)->fetchAll();
 	}
 
-
-	public function input() {
-
-		$album_name = $_POST['album_name'];
-		$album_id_artist = $_POST['album_id_artist'];
-
+	public function input(array $data): bool
+	{
 		$sql = "INSERT INTO tb_album (album_name, album_id_artist) VALUES (:album_name, :album_id_artist)";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindParam(":album_name", $album_name);
-		$stmt->bindParam(":album_id_artist", $album_id_artist);
-		$stmt->execute();
 
-		return false;
+		return $stmt->execute([
+			':album_name' => trim((string) ($data['album_name'] ?? '')),
+			':album_id_artist' => (int) ($data['album_id_artist'] ?? 0),
+		]);
 	}
 
-	public function listArtist()
+	public function listArtist(): array
 	{
-		$sql = "SELECT * FROM tb_artist";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute();
+		$sql = "SELECT * FROM tb_artist ORDER BY artist_name";
 
-		$data = [];
-		while ($row = $stmt->fetch()) {
-			$data[] = $row;
-		}
-
-		return $data;
+		return $this->db->query($sql)->fetchAll();
 	}
 
-	
-	public function edit($id)
+	public function edit(int $id): array|false
 	{
 		$sql = "SELECT * FROM tb_album WHERE album_id=:album_id";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindParam(":album_id", $id);
-		$stmt->execute();
+		$stmt->execute([':album_id' => $id]);
 
-		$row = $stmt->fetch();
-
-		return $row;
+		return $stmt->fetch();
 	}
 
-	public function update()
+	public function update(array $data): bool
 	{
-
-		$album_name = $_POST['album_name'];
-		$album_id_artist = $_POST['album_id_artist'];
-		$id = $_POST['album_id'];
-
 		$sql = "UPDATE tb_album SET album_name=:album_name, album_id_artist=:album_id_artist WHERE album_id=:album_id";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindParam(":album_name", $album_name);
-		$stmt->bindParam(":album_id_artist", $album_id_artist);
-		$stmt->bindParam(":album_id", $id);
 
-		$stmt->execute();
-
-		return false;
+		return $stmt->execute([
+			':album_name' => trim((string) ($data['album_name'] ?? '')),
+			':album_id_artist' => (int) ($data['album_id_artist'] ?? 0),
+			':album_id' => (int) ($data['album_id'] ?? 0),
+		]);
 	}
-
 }

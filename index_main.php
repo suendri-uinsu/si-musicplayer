@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $ind = new App\Index();
 $rows = $ind->track();
@@ -12,12 +12,12 @@ $rows = $ind->track();
 		<?php if (!empty($row['track_file'])) { ?>
 
 			<div>
-				<p><b><?php echo $row['track_name']; ?></b></p>
-				<p><?php echo $row['ALB'] . " - " . $row['ART']; ?></p>
+				<p><b><?= $row['track_name'] ?></b></p>
+				<p><?= $row['ALB'] . " - " . $row['ART'] ?></p>
 				<p>
 
 					<audio controls>
-						<source src="<?php echo "./layout/assets/uploads/" . $row['track_file']; ?>" type="audio/mpeg">
+						<source src="<?= "./layout/assets/uploads/" . $row['track_file'] ?>" type="audio/mpeg">
 							Your browser does not support the audio element.
 						</audio>					
 

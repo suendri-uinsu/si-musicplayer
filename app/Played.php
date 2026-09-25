@@ -1,17 +1,13 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace App;
 
-class Played extends Controller {
-
-	public function __construct() {
-		parent::__construct();
-	}
-
-	public function input()
+class Played extends Controller
+{
+	public function input(): void
 	{
 		# code...
 	}
-
-
 }
