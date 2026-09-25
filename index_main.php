@@ -12,12 +12,12 @@ $rows = $ind->track();
 		<?php if (!empty($row['track_file'])) { ?>
 
 			<div>
-				<p><b><?= e($row['track_name']) ?></b></p>
-				<p><?= e($row['ALB'] . " - " . $row['ART']) ?></p>
+				<p><b><?= $row['track_name'] ?></b></p>
+				<p><?= $row['ALB'] . " - " . $row['ART'] ?></p>
 				<p>
 
 					<audio controls>
-						<source src="<?= e("./layout/assets/uploads/" . $row['track_file']) ?>" type="audio/mpeg">
+						<source src="<?= "./layout/assets/uploads/" . $row['track_file'] ?>" type="audio/mpeg">
 							Your browser does not support the audio element.
 						</audio>					
 

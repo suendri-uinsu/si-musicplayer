@@ -20,19 +20,19 @@ $rows = $trc->tampil();
 	</tr>
 	<?php foreach ($rows as $row) { ?>
 		<tr>
-			<td><?= e($row['track_id']) ?></td>
-			<td><?= e($row['track_name']) ?></td>
-			<td><?= e($row['ALB'] . " - " . $row['ART']) ?></td>
-			<td><?= e($row['track_time']) ?></td>
+			<td><?= $row['track_id'] ?></td>
+			<td><?= $row['track_name'] ?></td>
+			<td><?= $row['ALB'] . " - " . $row['ART'] ?></td>
+			<td><?= $row['track_time'] ?></td>
 			<td>
 				<?php if (!empty($row['track_file'])) { ?>
 					<audio controls>
-						<source src="<?= e("./layout/assets/uploads/" . $row['track_file']) ?>" type="audio/mpeg">
+						<source src="<?= "./layout/assets/uploads/" . $row['track_file'] ?>" type="audio/mpeg">
 							Your browser does not support the audio element.
 						</audio>					
 					<?php } ?>
 				</td>
-				<td><a href="dashboard.php?page=track_edit&id=<?= e($row['track_id']) ?>" class="btn">Edit</a></td>
+				<td><a href="dashboard.php?page=track_edit&id=<?= $row['track_id'] ?>" class="btn">Edit</a></td>
 			</tr>
 		<?php } ?>
 	</table>

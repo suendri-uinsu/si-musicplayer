@@ -18,18 +18,18 @@ $lst = $alb->listArtist();
 <h2>EDIT ALBUM</h2>
 
 <form method="POST" action="album_proses.php">
-	<input type="hidden" name="album_id" value="<?= e($id) ?>">
+	<input type="hidden" name="album_id" value="<?= $id ?>">
 	<table>
 		<tr>
 			<td>NAMA</td>
-			<td><input type="text" name="album_name" value="<?= e($row['album_name']) ?>" required></td>
+			<td><input type="text" name="album_name" value="<?= $row['album_name'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>ARTIS</td>
 			<td>
 				<select name="album_id_artist">
 					<?php foreach ($lst as $ls) { ?>
-					<option value="<?= e($ls['artist_id']) ?>"<?= $row['album_id_artist']==$ls['artist_id'] ? " selected" : "" ?>><?= e($ls['artist_name']) ?></option>
+					<option value="<?= $ls['artist_id'] ?>"<?= $row['album_id_artist']==$ls['artist_id'] ? " selected" : "" ?>><?= $ls['artist_name'] ?></option>
 					<?php } ?>
 				</select>
 			</td>

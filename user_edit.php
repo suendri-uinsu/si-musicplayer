@@ -16,11 +16,11 @@ if ($row === false) {
 <h2>EDIT USER</h2>
 
 <form method="POST" action="user_proses.php">
-	<input type="hidden" name="user_id" value="<?= e($id) ?>">
+	<input type="hidden" name="user_id" value="<?= $id ?>">
 	<table>
 		<tr>
 			<td>USERNAME</td>
-			<td><input type="text" name="user_name" value="<?= e($row['user_name']) ?>" required></td>
+			<td><input type="text" name="user_name" value="<?= $row['user_name'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
@@ -31,11 +31,11 @@ if ($row === false) {
 		</tr>
 		<tr>
 			<td>EMAIL</td>
-			<td><input type="text" name="user_email" value="<?= e($row['user_email']) ?>" required></td>
+			<td><input type="text" name="user_email" value="<?= $row['user_email'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>NAMA LENGKAP</td>
-			<td><input type="text" name="user_nama_lengkap" value="<?= e($row['user_nama_lengkap']) ?>" required></td>
+			<td><input type="text" name="user_nama_lengkap" value="<?= $row['user_nama_lengkap'] ?>" required></td>
 		</tr>
 		<tr>
 			<td>ROLE</td>

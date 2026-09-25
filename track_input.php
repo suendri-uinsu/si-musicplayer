@@ -17,7 +17,7 @@ $lst = $alb->listAlbum();
 			<td>
 				<select name="track_id_album">
 					<?php foreach ($lst as $ls) { ?>
-					<option value="<?= e($ls['album_id']) ?>"><?= e($ls['album_name']) ?></option>
+					<option value="<?= $ls['album_id'] ?>"><?= $ls['album_name'] ?></option>
 					<?php } ?>
 				</select>
 			</td>

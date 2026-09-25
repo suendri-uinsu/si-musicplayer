@@ -20,4 +20,4 @@ Program latihan OOP PHP, Matakuliah Pemrograman Berbasis Web Lanjutan, Program S
 - `app/` : class model (namespace `App`, autoload PSR-4). Semua class turunan dari `Controller` yang menyiapkan koneksi PDO.
 - `*_tampil.php`, `*_input.php`, `*_edit.php` : halaman view, dimuat oleh `dashboard.php` atau `index.php`.
 - `*_proses.php` : pemroses form.
-- `inc/` : konfigurasi dan fungsi bantu (`e()`, `redirect()`, `wajibLogin()`).
+- `inc/` : konfigurasi dan fungsi bantu (`redirect()`, `wajibLogin()`).

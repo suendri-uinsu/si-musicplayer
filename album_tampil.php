@@ -19,9 +19,9 @@ $rows = $alb->tampil();
 	<?php $no=0; foreach ($rows as $row) { $no++;?>
 		<tr>
 			<td><?= $no ?></td>
-			<td><?= e($row['album_name']) ?></td>
-			<td><?= e($row['ART']) ?></td>
-			<td><a href="dashboard.php?page=album_edit&id=<?= e($row['album_id']) ?>" class="btn">Edit</a></td>
+			<td><?= $row['album_name'] ?></td>
+			<td><?= $row['ART'] ?></td>
+			<td><a href="dashboard.php?page=album_edit&id=<?= $row['album_id'] ?>" class="btn">Edit</a></td>
 		</tr>
 	<?php } ?>
 </table>

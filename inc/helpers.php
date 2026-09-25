@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-// Escape output HTML untuk mencegah XSS
-function e(mixed $value): string
-{
-	return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
-
 // Redirect lalu hentikan eksekusi
 function redirect(string $url): never
 {

@@ -17,9 +17,9 @@ $rows = $art->tampil();
 	</tr>
 	<?php foreach ($rows as $row) { ?>
 		<tr>
-			<td><?= e($row['artist_id']) ?></td>
-			<td><?= e($row['artist_name']) ?></td>
-			<td><a href="dashboard.php?page=artist_edit&id=<?= e($row['artist_id']) ?>" class="btn">Edit</a></td>
+			<td><?= $row['artist_id'] ?></td>
+			<td><?= $row['artist_name'] ?></td>
+			<td><a href="dashboard.php?page=artist_edit&id=<?= $row['artist_id'] ?>" class="btn">Edit</a></td>
 		</tr>
 	<?php } ?>
 </table>
