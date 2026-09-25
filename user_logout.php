@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 // Config
 require_once "inc/config.php";
 
+$_SESSION = [];
 session_destroy();
 
-header("location:index.php");
+redirect("index.php");

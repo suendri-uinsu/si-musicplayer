@@ -1,9 +1,16 @@
-<?php 
+<?php
 
-$id = $_GET['id'];
+$id = ambilId();
 
 $alb = new App\Album();
 $row = $alb->edit($id);
+
+// Kalau data tidak ditemukan, hentikan halaman ini
+if ($row === false) {
+	echo '<p>Data tidak ditemukan.</p>';
+	return;
+}
+
 $lst = $alb->listArtist();
 
 ?>
@@ -11,18 +18,18 @@ $lst = $alb->listArtist();
 <h2>EDIT ALBUM</h2>
 
 <form method="POST" action="album_proses.php">
-	<input type="hidden" name="album_id" value="<?php echo $id; ?>">
+	<input type="hidden" name="album_id" value="<?= e($id) ?>">
 	<table>
 		<tr>
 			<td>NAMA</td>
-			<td><input type="text" name="album_name" value="<?php echo $row['album_name']; ?>" required=""></td>
+			<td><input type="text" name="album_name" value="<?= e($row['album_name']) ?>" required></td>
 		</tr>
 		<tr>
 			<td>ARTIS</td>
 			<td>
 				<select name="album_id_artist">
 					<?php foreach ($lst as $ls) { ?>
-					<option value="<?php echo $ls['artist_id']; ?>"<?php echo $row['album_id_artist']==$ls['artist_id'] ? " selected" : ""; ?>><?php echo $ls['artist_name']; ?></option>
+					<option value="<?= e($ls['artist_id']) ?>"<?= $row['album_id_artist']==$ls['artist_id'] ? " selected" : "" ?>><?= e($ls['artist_name']) ?></option>
 					<?php } ?>
 				</select>
 			</td>

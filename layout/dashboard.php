@@ -1,18 +1,11 @@
-<?php 
-
-// Kalau sesi user_name tidak ada, redirect
-/*if (!isset($_SESSION['user_name'])) {	
-	header("location:index.php"); 
-}*/ 
-
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SI Music Player</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo ASSET; ?>css/style.css">
-	<link href="<?php echo ASSET; ?>images/favicon.ico" rel="shortcut icon">
+	<link rel="stylesheet" type="text/css" href="<?= ASSET ?>css/style.css">
+	<link href="<?= ASSET ?>images/favicon.ico" rel="shortcut icon">
 </head>
 <body>
 	<div class="container">
@@ -27,20 +20,12 @@
 
 		<div class="main">
 			
-			<?php 
-
-			if (isset($_GET['page'])) {
-				include $_GET['page'] . ".php";
-			} else {
-				include "dashboard_main.php";
-			}
-
-			?>
+			<?php include __DIR__ . "/../" . $page . ".php"; ?>
 
 		</div>
 
 		<div class="footer">
-			Copyright 2020. SI Music Player
+			Copyright 2020-<?= date('Y') ?>. SI Music Player
 		</div>
 	</div>
 </body>

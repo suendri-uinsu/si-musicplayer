@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 // Config
 require_once "inc/config.php";
 
+wajibLogin();
+
 $alb = new App\Album();
 
-if ($_POST['btn-simpan']) {
-	$alb->input();
-	header("location:dashboard.php?page=album_tampil");
+if (isset($_POST['btn-simpan'])) {
+	$alb->input($_POST);
+} elseif (isset($_POST['btn-update'])) {
+	$alb->update($_POST);
 }
 
-if ($_POST['btn-update']) {
-	$alb->update();
-	header("location:dashboard.php?page=album_tampil");
-}
+redirect("dashboard.php?page=album_tampil");

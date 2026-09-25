@@ -1,108 +1,81 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace App;
 
 class User extends Controller
 {
-	
-	public function __construct()
+	private const array ROLES = ['1', '2'];
+
+	public function tampil(): array
 	{
-		parent::__construct();
+		$sql = "SELECT * FROM tb_users ORDER BY user_name";
+
+		return $this->db->query($sql)->fetchAll();
 	}
 
-	public function tampil()
+	public function input(array $data): bool
 	{
-		$sql = "SELECT * FROM tb_users";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute();
+		$password = (string) ($data['user_password'] ?? '');
+		$params = $this->params($data);
 
-		$data = [];
-		while ($row = $stmt->fetch()) {
-			$data[] = $row;
+		if ($params[':user_name'] === '' || $password === '') {
+			return false;
 		}
 
-		return $data;
+		$params[':user_password'] = password_hash($password, PASSWORD_DEFAULT);
+
+		$sql = "INSERT INTO tb_users (user_name, user_password, user_email, user_nama_lengkap, user_role)
+		VALUES (:user_name, :user_password, :user_email, :user_nama_lengkap, :user_role)";
+		$stmt = $this->db->prepare($sql);
+
+		return $stmt->execute($params);
 	}
 
-	public function input()
-	{
-		$user_name = $_POST['user_name'];
-		$user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
-		$user_email = $_POST['user_email'];
-		$user_nama_lengkap = $_POST['user_nama_lengkap'];
-		$user_role = $_POST['user_role'];
-
-		if (!empty($user_name) AND !empty($user_password)) {
-
-			$sql = "INSERT INTO tb_users (user_name, user_password, user_email, user_nama_lengkap, user_role) 
-			VALUES (:user_name, :user_password, :user_email, :user_nama_lengkap, :user_role)";
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(":user_name", $user_name);
-			$stmt->bindParam(":user_password", $user_password);
-			$stmt->bindParam(":user_email", $user_email);
-			$stmt->bindParam(":user_nama_lengkap", $user_nama_lengkap);
-			$stmt->bindParam(":user_role", $user_role);
-			$stmt->execute();
-		} 
-
-		return false;
-	}
-
-	public function edit($id)
+	public function edit(int $id): array|false
 	{
 		$sql = "SELECT * FROM tb_users WHERE user_id=:user_id";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindParam(":user_id", $id);
-		$stmt->execute();
+		$stmt->execute([':user_id' => $id]);
 
-		$row = $stmt->fetch();
-
-		return $row;
+		return $stmt->fetch();
 	}
 
-	public function update()
+	public function update(array $data): bool
 	{
-		$user_name = $_POST['user_name'];
-		$user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
-		$user_email = $_POST['user_email'];
-		$user_nama_lengkap = $_POST['user_nama_lengkap'];
-		$user_role = $_POST['user_role'];
-		$id = $_POST['user_id'];
+		$password = (string) ($data['user_password'] ?? '');
+		$params = $this->params($data);
+		$params[':user_id'] = (int) ($data['user_id'] ?? 0);
 
-		if(!empty($_POST['user_password'])) {
-			$sql = "UPDATE tb_users SET 
-			user_name=:user_name, 
-			user_password=:user_password, 
-			user_email=:user_email, 
-			user_nama_lengkap=:user_nama_lengkap, 
-			user_role=:user_role
-			WHERE user_id=:user_id";
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(":user_name", $user_name);
-			$stmt->bindParam(":user_password", $user_password);
-			$stmt->bindParam(":user_email", $user_email);
-			$stmt->bindParam(":user_nama_lengkap", $user_nama_lengkap);
-			$stmt->bindParam(":user_role", $user_role);
-			$stmt->bindParam(":user_id", $id);
-			$stmt->execute();
-		} else {
-			$sql = "UPDATE tb_users SET 
-			user_name=:user_name, 
-			user_email=:user_email, 
-			user_nama_lengkap=:user_nama_lengkap, 
-			user_role=:user_role
-			WHERE user_id=:user_id";
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(":user_name", $user_name);
-			$stmt->bindParam(":user_email", $user_email);
-			$stmt->bindParam(":user_nama_lengkap", $user_nama_lengkap);
-			$stmt->bindParam(":user_role", $user_role);
-			$stmt->bindParam(":user_id", $id);
-			$stmt->execute();
+		$sql = "UPDATE tb_users SET
+			user_name=:user_name,
+			user_email=:user_email,
+			user_nama_lengkap=:user_nama_lengkap,
+			user_role=:user_role";
+
+		// Password hanya diubah kalau diisi
+		if ($password !== '') {
+			$sql .= ", user_password=:user_password";
+			$params[':user_password'] = password_hash($password, PASSWORD_DEFAULT);
 		}
 
-		return false;
+		$sql .= " WHERE user_id=:user_id";
+		$stmt = $this->db->prepare($sql);
+
+		return $stmt->execute($params);
 	}
 
+	// Parameter yang sama untuk input dan update
+	private function params(array $data): array
+	{
+		$role = (string) ($data['user_role'] ?? '2');
 
+		return [
+			':user_name' => trim((string) ($data['user_name'] ?? '')),
+			':user_email' => trim((string) ($data['user_email'] ?? '')),
+			':user_nama_lengkap' => trim((string) ($data['user_nama_lengkap'] ?? '')),
+			':user_role' => in_array($role, self::ROLES, true) ? $role : '2',
+		];
+	}
 }
